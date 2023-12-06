@@ -1,31 +1,87 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Elementary Memorizing</title>
-
-    </head>
-    <body>
-        <header>
-          <button>Settings</button>
-          <button>Collection</button>
-          <button>Log in</button>
-          <button>Sign up</button>
-        </header>
-
-        <main>
-          <div class="flashcard">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.css">
+    <link rel="stylesheet" href="../static/css/style.css">
+    <title>Elemantary Memorizing - Collections</title>
+</head>
+<body>
+  <header class="bg-light shadow">
+    <div class="container">
+      <nav class="navbar navbar-expand-md">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">collection</a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+          <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">statistics</a>
+              </li>
+              <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="#">settings</a>
+              </li>
+            </ul>
+            <form class="d-grid gap-2 d-md-flex justify-content-md-end">
+              <button class="btn btn-light shadow-sm me-md-2" type="button">Log In</button>
+              <button class="btn btn-light shadow-sm" type="button">Sign Up</button>
+            </form>
           </div>
-        </main>
-
-        <footer>
-          ...footer...
-        </footer>
-
-        <script>
-          // You can add JavaScript for flashcard functionality here
-        </script>
-
-    </body>
+        </div>
+      </nav>
+    </div>
+  </header>
+  <section>
+    <div class="container-sm collection-place bg-light shadow">
+      <div class="row">
+        <form>
+          <div class="mb-3">
+            <label for="exampleInputEmail1" class="form-label">Email address</label>
+            <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+            <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
+          </div>
+          <div class="mb-3">
+            <label for="exampleInputPassword1" class="form-label">Password</label>
+            <input type="password" class="form-control" id="exampleInputPassword1">
+          </div>
+          <div class="mb-3 form-check">
+            <input type="checkbox" class="form-check-input" id="exampleCheck1">
+            <label class="form-check-label" for="exampleCheck1">Check me out</label>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+  </section>
+  <footer class="bg-dark">
+    <ul class="nav justify-content-center">
+      <li class="nav-item">
+        <a class="nav-link active link-secondary" aria-current="page" href="#">Contacts</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link link-secondary" href="#">Support</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link link-secondary" href="#">GitHub</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link link-secondary" href="#">Twitter</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link link-secondary" href="#">Terms</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link link-secondary" href="#">Security</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link link-secondary" href="#">Privacy</a>
+      </li>
+    </ul>
+  </footer>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
+</body>
 </html>
