@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+  {% block content %}
+  <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 pb-5 justify-content-center">
+  {% if user.is_authenticated %}
+  <div class="col">
+    <div class="card text-center" style="width: 20rem;">
+      <h4 class="card-header">Create new collection</h4>
+      <div class="card-body">
+          <p class="card-text">Create a new collection of words.</p>
+          <a href="{% url 'words_polls:create-collection' %}" class="btn btn-secondary">Create</a>
+      </div>
+    </div>
+  </div>
+  {% endif %}
+    {% if object_list  %}
+      {% for wp in object_list %}
+      <div class="col">
+        <div class="card text-center" style="width: 20rem;">
+          <h4 class="card-header">{{ wp.collection_name }}</h4>
+          <div class="card-body">
+              <p class="card-text">{{ wp.foreign_words.count }} words</p>
+              <a href="{% url 'words_polls:detail' wp.id %}" class="btn btn-secondary">Open</a>
+          </div>
+        </div>
+      </div>
+      {% endfor %}
+      </div>
+    {% endif %}
+  {% endblock %}

@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+{% load static %}
+{% load custom_filters %}
+
+{% block css_styles %}
+<link href="{% static 'main/css/custom_style.css' %}" rel="stylesheet"/>
+{% endblock %}
+
+{% block content %}
+<form action="{% url 'words_polls:create-collection' %}" method="POST">
+  {% csrf_token %}
+  <div class="mb-4">
+    <div class="row justify-content-center">
+      <div class="col-lg-5 mb-4">
+        <input 
+          type="text" 
+          class="form-control bg-dark text-light" 
+          name="collection_name" 
+          value="{{ collection.collection_name|default:'Enter collection name...' }}" 
+          required
+        >
+      </div>
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-lg-9 mb-4">
+        <!-- Headlines -->
+        <div class="row">
+          <div class="col-md-5">
+            <h6 class="h6 text-start">Foreign Word:</h6>
+          </div>
+          <div class="col-md-6 ps-0">
+            <h6 class="h6 text-start">Translation:</h6>
+          </div>
+          <div class="col-md-1">
+          </div>
+        </div>
+        <!-- Input fields -->
+        <div id="words-container">
+          {% if collection %}  
+          {% for wp in collection.foreign_words.all %}
+          <div class="input-group mb-2">
+            <div class="row g-2 w-100">
+              {% comment %} Foreign word {% endcomment %}
+              <div class="col-md-5">
+                <input 
+                  type="text"
+                  class="form-control bg-dark text-light"
+                  name="word_{{ wp.id }}"
+                  placeholder="Foreign word"
+                  value="{{ wp.word }}"
+                >
+              </div>
+              {% comment %} Input field {% endcomment %}
+              <div class="col-md-6">
+                <input 
+                  type="text"
+                  class="form-control bg-dark text-light"
+                  name="translation_{{ wp.id }}"
+                  placeholder="Translation"
+                  value="{% for tr in wp.translate_words.all %}{{ tr.word }}{% if not forloop.last %}, {% endif %}{% endfor %}"
+                >
+              </div>
+              {% comment %} Delete Button {% endcomment %}
+              <div class="col-md-1">
+                <button type="button" class="btn btn-danger remove-input-group">
+                  <i class="fas fa-trash"></i>
+              </div>
+              </button>
+            </div>
+          </div>
+          {% endfor %}
+          {% endif %}
+        </div>
+        <!-- Add new input group button -->
+        <div class="row g-2 mb-3">
+          <div class="col-md-5 text-end pe-2"></div>
+          <div class="col-md-6 ps-0">
+            <button type="button" class="btn btn-outline-light" id="add-row">add row</button>
+          </div>
+        </div>
+          <!-- Manual button's -->
+        <div class="row g-2">
+          <div class="col-md-5 text-end pe-2">
+            <button type="submit" class="btn btn-light btn-lg px-5">Save</button>
+          </div>
+          <div class="col-md-6 ps-0">
+            <button
+              type="button"
+              class="btn btn-outline-secondary btn-lg px-5"
+              onclick="window.location.href='{% url 'words_polls:index' %}'">
+              Cancel
+            </button>
+          </div>
+          <div class="col-md-1">
+            <!-- Empty place -->
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>
+<!-- Empty Template -->
+<template id="row-template">
+  <div class="input-group mb-2">
+    <div class="row g-2 w-100">
+      <div class="col-md-5">
+        <input
+          type="text"
+          class="form-control bg-dark text-light"
+          placeholder="Foreign word"
+          id="new-word"
+        >
+      </div>
+      <div class="col-md-6">
+        <input
+          type="text"
+          class="form-control bg-dark text-light"
+          placeholder="Translation"
+          id="new-translation"
+        >
+      </div>
+      <div class="col-md-1">
+        <button type="button" class="btn btn-danger remove-input-group">
+          <i class="fas fa-trash"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+</template>
+{% endblock %}
+{% block js_scripts %}
+  <script src="{% static 'main/js/collections.js' %}" type="text/javascript"></script>
+{% endblock js_scripts %}
