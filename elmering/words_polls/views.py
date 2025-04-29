@@ -1,21 +1,13 @@
-from django.db.models import QuerySet
 from django.db import transaction
-from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.shortcuts import get_object_or_404
 from django.views.generic import TemplateView
 from django.views.generic.list import ListView
 from django.views.generic.detail import DetailView
+from django.views.generic.edit import DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-
-from rest_framework.renderers import TemplateHTMLRenderer
-from rest_framework.response import Response
-from rest_framework.views import APIView
-
 from words_polls.models import Words_Collection, Foreign_Word, Translate_Word
-from words_polls.forms import ForeignWordForm, TranslateWordFormSet
-from words_polls.serializers import WordsCollectionSerializer
 
 
 class CollectionListView(ListView):
@@ -92,7 +84,7 @@ class CollectionEditView(TemplateView):
                         for x in request_dict.get(f"nt_{key[3:]}").split(',')]
                     if new_transl:
                         Translate_Word.objects.bulk_create(new_transl)
-        return redirect("words_polls:edit-collection", pk=pk)
+        return redirect("words_polls:detail", id=pk)
 
 
 class CollectionCreateView(LoginRequiredMixin, TemplateView):
@@ -118,3 +110,8 @@ class CollectionCreateView(LoginRequiredMixin, TemplateView):
                 if new_transl:
                     Translate_Word.objects.bulk_create(new_transl)
         return redirect("words_polls:index")
+
+
+class CollectionDeleteView(LoginRequiredMixin, DeleteView):
+    model = Words_Collection
+    success_url = '/'

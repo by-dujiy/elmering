@@ -15,5 +15,8 @@ urlpatterns: list = [
          name="edit-collection"),
     path("collection-create/",
          views.CollectionCreateView.as_view(),
-         name="create-collection")
+         name="create-collection"),
+    path("collection/<int:pk>/delete",
+         views.CollectionDeleteView.as_view(),
+         name="delete-collection"),
 ]
