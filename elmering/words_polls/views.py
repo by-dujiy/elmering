@@ -74,16 +74,17 @@ class CollectionEditView(TemplateView):
                 # create new foreign and translation
                 if 'nw_' in key:
                     new_fw = request_dict.get(f"nw_{key[3:]}")
-                    foreign_word = Foreign_Word.objects.create(
-                        word=new_fw,
-                        words_collection=collection
-                    )
-                    new_transl = [
-                        Translate_Word(word=x.strip(),
-                                       foreign_word=foreign_word)
-                        for x in request_dict.get(f"nt_{key[3:]}").split(',')]
-                    if new_transl:
-                        Translate_Word.objects.bulk_create(new_transl)
+                    if new_fw:
+                        foreign_word = Foreign_Word.objects.create(
+                            word=new_fw,
+                            words_collection=collection
+                        )
+                        new_transl = [
+                            Translate_Word(word=x.strip(),
+                                           foreign_word=foreign_word)
+                            for x in request_dict.get(f"nt_{key[3:]}").split(',')]
+                        if new_transl:
+                            Translate_Word.objects.bulk_create(new_transl)
         return redirect("words_polls:detail", id=pk)
 
 
@@ -99,16 +100,19 @@ class CollectionCreateView(LoginRequiredMixin, TemplateView):
         for key, value in request.POST.items():
             if 'nw_' in key:
                 new_fw = request.POST.get(f"nw_{key[3:]}")
-                foreign_word = Foreign_Word.objects.create(
-                    word=new_fw,
-                    words_collection=collection
-                )
-                new_transl = [
-                    Translate_Word(word=x.strip(),
-                                   foreign_word=foreign_word)
-                    for x in request.POST.get(f"nt_{key[3:]}").split(',')]
-                if new_transl:
-                    Translate_Word.objects.bulk_create(new_transl)
+                if new_fw:
+                    # create foreign word and translation
+                    # if new_fw is not None and new_fw != '':
+                    foreign_word = Foreign_Word.objects.create(
+                        word=new_fw,
+                        words_collection=collection
+                    )
+                    new_transl = [
+                        Translate_Word(word=x.strip(),
+                                       foreign_word=foreign_word)
+                        for x in request.POST.get(f"nt_{key[3:]}").split(',')]
+                    if new_transl:
+                        Translate_Word.objects.bulk_create(new_transl)
         return redirect("words_polls:index")
 
 
